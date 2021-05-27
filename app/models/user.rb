@@ -77,4 +77,10 @@ class User < ApplicationRecord
     return user_following
   end
 
+  def photos
+    user_id = self.id
+    matching_photos = Photo.where({ :owner_id => user_id})
+    return matching_photos
+  end
+
 end
