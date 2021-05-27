@@ -12,4 +12,11 @@
 #  owner_id       :integer
 #
 class Photo < ApplicationRecord
+
+  def owner
+    owner_id = self.owner_id
+    the_owner = User.where({ :id => owner_id}).first
+    return the_owner
+  end
+
 end

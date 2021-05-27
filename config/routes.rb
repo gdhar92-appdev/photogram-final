@@ -94,6 +94,14 @@ Rails.application.routes.draw do
 
   #------------------------------
 
+  get("/user_sign_in", { :controller => "users", :action => "sign_in" })
+
+  get("/user_sign_up", { :controller => "users", :action => "sign_up" })
+
+  post("/verify_credentials", { :controller => "users", :action => "authenticate"})
+
+  get("/insert_user_record", { :controller => "users", :action => "create"})
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
  # get("/")
