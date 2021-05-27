@@ -62,6 +62,8 @@ Rails.application.routes.draw do
   post("/insert_user", { :controller => "users", :action => "create" })
           
   # READ
+  get("/", { :controller => "users", :action => "index" })
+
   get("/users", { :controller => "users", :action => "index" })
   
   get("/users/:path_id", { :controller => "users", :action => "show" })
@@ -102,6 +104,7 @@ Rails.application.routes.draw do
 
   get("/insert_user_record", { :controller => "users", :action => "create"})
 
+  get("/user_sign_out", { :controller => "users", :action => "sign_out"})
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
  # get("/")

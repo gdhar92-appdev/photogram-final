@@ -70,6 +70,11 @@ class UsersController < ApplicationController
     render({ :template => "users/user_sign_up.html.erb"})
   end
 
+  def sign_out
+    reset_session
+    redirect_to("/")
+  end
+
   def authenticate
     
     user_email = params.fetch("input_email")
@@ -97,6 +102,7 @@ class UsersController < ApplicationController
     user.password = params.fetch("input_password")
     user.password_confirmation = params.fetch("input_password_confirmation")
     user.username = params.fetch("input_username")
+    user.private = params.fetch("input_private")
 
     save_status = user.save
 
