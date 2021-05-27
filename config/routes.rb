@@ -105,6 +105,9 @@ Rails.application.routes.draw do
   get("/insert_user_record", { :controller => "users", :action => "create"})
 
   get("/user_sign_out", { :controller => "users", :action => "sign_out"})
+
+  get("/users/:user_id/feed", { :controller => "users", :action => "feed"})
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
  # get("/")

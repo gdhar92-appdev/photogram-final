@@ -115,4 +115,10 @@ class UsersController < ApplicationController
     
   end
 
+  def feed
+    input_username = params.fetch("user_id")
+    @the_user = User.where({ :username => input_username}).first
+    render({ :template => "users/feed.html.erb"})
+  end
+
 end
