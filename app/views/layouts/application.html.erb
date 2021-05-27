@@ -16,6 +16,46 @@
 
   <body>
 
+    <nav>
+      <% if session.fetch(:user_id) == nil %>
+        <ul>
+          <li>
+            <a href="/users">All users</a>
+          </li>
+
+          <li>
+            <a href="/photos">All public photos</a>
+          </li>
+
+          <li>
+            <a href="/user_sign_in">Sign in</a>
+          </li>
+
+          <li>
+            <a href="/user_sign_up">Sign up</a>
+          </li>
+        </ul>
+      <% else %>
+        <ul>
+          <li>
+            <a href="/users">All users</a>
+          </li>
+
+          <li>
+            <a href="/photos">All public photos</a>
+          </li>
+
+          <li>
+            <a href="/edit_user_profile"><%= User.where({ :id => session.fetch(:user_id).to_i }).first.username %></a>
+          </li>
+
+          <li>
+            <a href="/user_sign_out">Sign out</a>
+          </li>
+        </ul>
+      <% end %>
+    </nav>
+
     <% if notice.present?%>
       <div style="border: thin green solid; color: green">
         <%= notice %>
@@ -27,26 +67,7 @@
         <%= alert %>
       </div>
     <% end %>
-
-    <nav>
-      <ul>
-        <li>
-          <a href="/users">All users</a>
-        </li>
-
-        <li>
-          <a href="/photos">All public photos</a>
-        </li>
-
-        <li>
-          <a href="/user_sign_in">Sign in</a>
-        </li>
-
-        <li>
-          <a href="/user_sign_up">Sign up</a>
-        </li>
-      </ul>
-    </nav>
+    
     <%= yield %>
   </body>
 </html>

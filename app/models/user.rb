@@ -22,4 +22,27 @@ class User < ApplicationRecord
   )
 
   has_secure_password
+
+  def is_followed_by(sender_id)
+    #sender_id = session.fetch(:user_id).to_i
+    recipient_id = self.id
+    follow_status = FollowRequest.where({:recipient_id => recipient_id }).where({ :sender_id => sender_id }).first
+    if follow_status == "accepted"
+      return true
+    else
+      return false
+    end
+  end
+
+  def is_follower_of(recipient_id)
+    sender_id = self.id 
+    #recipient_id = session.fetch(:user_id).to_i
+    follow_status = FollowRequest.where({:recipient_id => recipient_id }).where({ :sender_id => sender_id }).first
+    if follow_status == "accepted"
+      return true
+    else
+      return false
+    end
+  end
+
 end

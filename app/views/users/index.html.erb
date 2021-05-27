@@ -20,13 +20,31 @@
       <%= a_user.username %>
     </td>
 
-    <td>
-      <%= a_user.private %>
-    </td>
+    <% if a_user.private %>
+      <td>
+        Yes
+      </td>
+    <% else %>
+      <td>
+        No
+      </td>
+    <% end %>
 
-    <td>
-      <a href="">Follow</a>
-    </td>
+    <% if session.fetch(:user_id) == nil %>
+      <td>
+      </td>
+    <% else %>
+      <% current_user = session.fetch(:user_id).to_i %>
+      <% if a_user.is_follower_of(current_user) || a_user.is_followed_by(current_user) %>
+        <td>
+          <a href="">Un-Follow</a>
+        </td>
+      <% else %>
+        <td>
+          <a href="">Follow</a>
+        </td>
+      <% end %>
+    <% end %>
 
     <td>
       <a href="/users/<%= a_user.username %>">Show details</a>
