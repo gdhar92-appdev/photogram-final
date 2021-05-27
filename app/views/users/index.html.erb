@@ -37,7 +37,7 @@
       <% current_user = session.fetch(:user_id).to_i %>
       <% if (a_user.is_follower_of(current_user) == 1) || (a_user.is_followed_by(current_user) == 1) %>
         <td>
-          <a href="">Un-Follow</a>
+          <a href="">Unfollow</a>
         </td>
       <% elsif (a_user.is_follower_of(current_user) == 2) || (a_user.is_followed_by(current_user) == 2) %>
         <td>
@@ -45,14 +45,13 @@
         </td>
       <% elsif (a_user.is_follower_of(current_user) == 3) || (a_user.is_followed_by(current_user) == 3) %>
         <td>
-          Got to figure this out....
         </td>
       <% elsif (a_user.is_follower_of(current_user) == 4) || (a_user.is_followed_by(current_user) == 4) %>
         <td>
           <form action="/create_follow_request">
-            
+            <input id="browser_follow_button" type="hidden" value="<%= a_user.id %>" name="follow_request_id">
+            <button>Follow</button>
           </form>
-          <a href="">Follow</a>
         </td>
       <% end %>
     <% end %>

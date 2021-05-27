@@ -17,22 +17,22 @@ class UsersController < ApplicationController
     render({ :template => "users/show.html.erb" })
   end
 
-  def create
-    the_user = User.new
-    the_user.comments_count = params.fetch("query_comments_count")
-    the_user.email = params.fetch("query_email")
-    the_user.likes_count = params.fetch("query_likes_count")
-    the_user.password_digest = params.fetch("query_password_digest")
-    the_user.private = params.fetch("query_private", false)
-    the_user.username = params.fetch("query_username")
+  # def create
+  #   the_user = User.new
+  #   the_user.comments_count = params.fetch("query_comments_count")
+  #   the_user.email = params.fetch("query_email")
+  #   the_user.likes_count = params.fetch("query_likes_count")
+  #   the_user.password_digest = params.fetch("query_password_digest")
+  #   the_user.private = params.fetch("query_private", false)
+  #   the_user.username = params.fetch("query_username")
 
-    if the_user.valid?
-      the_user.save
-      redirect_to("/users", { :notice => "User created successfully." })
-    else
-      redirect_to("/users", { :notice => "User failed to create successfully." })
-    end
-  end
+  #   if the_user.valid?
+  #     the_user.save
+  #     redirect_to("/users", { :notice => "User created successfully." })
+  #   else
+  #     redirect_to("/users", { :notice => "User failed to create successfully." })
+  #   end
+  # end
 
   def update
     the_id = params.fetch("path_id")
@@ -102,7 +102,7 @@ class UsersController < ApplicationController
     user.password = params.fetch("input_password")
     user.password_confirmation = params.fetch("input_password_confirmation")
     user.username = params.fetch("input_username")
-    user.private = params.fetch("input_private")
+    user.private = params.fetch("input_private", false)
 
     save_status = user.save
 
