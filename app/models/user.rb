@@ -28,9 +28,13 @@ class User < ApplicationRecord
     recipient_id = self.id
     follow_status = FollowRequest.where({:recipient_id => recipient_id }).where({ :sender_id => sender_id }).first
     if follow_status == "accepted"
-      return true
+      return 1
+    elsif follow_status == "pending"
+      return 2
+    elsif follow_status == "rejected"
+      return 3
     else
-      return false
+      return 4
     end
   end
 
@@ -39,9 +43,13 @@ class User < ApplicationRecord
     #recipient_id = session.fetch(:user_id).to_i
     follow_status = FollowRequest.where({:recipient_id => recipient_id }).where({ :sender_id => sender_id }).first
     if follow_status == "accepted"
-      return true
+      return 1
+    elsif follow_status == "pending"
+      return 2
+    elsif follow_status == "rejected"
+      return 3
     else
-      return false
+      return 4
     end
   end
 

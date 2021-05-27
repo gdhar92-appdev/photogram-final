@@ -35,12 +35,23 @@
       </td>
     <% else %>
       <% current_user = session.fetch(:user_id).to_i %>
-      <% if a_user.is_follower_of(current_user) || a_user.is_followed_by(current_user) %>
+      <% if (a_user.is_follower_of(current_user) == 1) || (a_user.is_followed_by(current_user) == 1) %>
         <td>
           <a href="">Un-Follow</a>
         </td>
-      <% else %>
+      <% elsif (a_user.is_follower_of(current_user) == 2) || (a_user.is_followed_by(current_user) == 2) %>
         <td>
+          Request sent. <a href="">Cancel</a>
+        </td>
+      <% elsif (a_user.is_follower_of(current_user) == 3) || (a_user.is_followed_by(current_user) == 3) %>
+        <td>
+          Got to figure this out....
+        </td>
+      <% elsif (a_user.is_follower_of(current_user) == 4) || (a_user.is_followed_by(current_user) == 4) %>
+        <td>
+          <form action="/create_follow_request">
+            
+          </form>
           <a href="">Follow</a>
         </td>
       <% end %>
