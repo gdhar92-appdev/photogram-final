@@ -39,15 +39,16 @@ class UsersController < ApplicationController
     the_user = User.where({ :id => the_id }).at(0)
 
     the_user.comments_count = params.fetch("query_comments_count")
-    the_user.email = params.fetch("query_email")
+    the_user.email = params.fetch("query_user_email")
     the_user.likes_count = params.fetch("query_likes_count")
-    the_user.password_digest = params.fetch("query_password_digest")
-    the_user.private = params.fetch("query_private", false)
-    the_user.username = params.fetch("query_username")
+    the_user.password = params.fetch("query_user_password")
+    the_user.password_confirmation = params.fetch("query_user_password_confirmation")
+    the_user.private = params.fetch("query_user_private", false)
+    the_user.username = params.fetch("query_user_username")
 
     if the_user.valid?
       the_user.save
-      redirect_to("/users/#{the_user.id}", { :notice => "User updated successfully."} )
+      redirect_to("/users", { :notice => "User account updated successfully."} )
     else
       redirect_to("/users/#{the_user.id}", { :alert => "User failed to update successfully." })
     end
@@ -72,7 +73,7 @@ class UsersController < ApplicationController
 
   def sign_out
     reset_session
-    redirect_to("/")
+    redirect_to("/", {:notice => "Signed out successfully"})
   end
 
   def authenticate
@@ -87,7 +88,7 @@ class UsersController < ApplicationController
     else
       if the_user.authenticate(pw)
         session.store(:user_id, the_user.id)
-        redirect_to("/")
+        redirect_to("/", {:notice => "Signed in successfully" })
       else
         redirect_to("/user_sign_in", {:alert => "Incorrect Password"})
       end
@@ -119,6 +120,12 @@ class UsersController < ApplicationController
     input_username = params.fetch("user_id")
     @the_user = User.where({ :username => input_username}).first
     render({ :template => "users/feed.html.erb"})
+  end
+
+  def edit_profile
+    user_id = session.fetch(:user_id).to_i
+    @the_user = User.where({:id => user_id}).first
+    render({ :template => "users/edit_user_account.html.erb"})
   end
 
 end

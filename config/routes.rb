@@ -107,6 +107,8 @@ Rails.application.routes.draw do
   get("/user_sign_out", { :controller => "users", :action => "sign_out"})
 
   get("/users/:user_id/feed", { :controller => "users", :action => "feed"})
+
+  get("/edit_user_profile", {:controller => "users", :action => "edit_profile"})
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 

@@ -1,0 +1,45 @@
+<h5>Edit User Account</h5>
+
+<form action="/modify_user/<%= @the_user.id %>" method="post">
+  <div>
+    <label for"user_email_box">Email</label>
+    <input id="user_email_box" type="text" name="query_user_email" value="<%= @the_user.email %>">
+  </div>
+
+  <div>
+    <label for="user_comments_count">Comments count</label>
+    <input id="user_comments_count" type="text" name="query_comments_count" value="<%= @the_user.comments_count %>">
+  </div>
+
+  <div>
+    <label for="user_likes_count">Like count</label>
+    <input id="user_likes_count" type="text" name="query_likes_count" value="<%= @the_user.likes_count %>">
+  </div>
+
+  <div>
+    <% if @the_user.private %>  
+      <label for="user_private_checbox">Private</label>
+      <input id="user_private_checkbox" type="checkbox" name="query_user_private" value="coding" checked>
+    <% else %>
+      <label for="user_private_checbox">Private</label>
+      <input id="user_private_checkbox" type="checkbox" name="query_user_private">
+    <% end %>
+  </div>
+
+  <div>
+    <label for="user_username_box">Username</label>
+    <input id="user_username_box" type="text" name="query_user_username" value="<%= @the_user.username %>">
+  </div>
+
+  <div>
+    <label for="user_password_box">Password</label>
+    <input id="user_password_box" type="password" name="query_user_password" placeholder="Choose a password...">
+  </div>
+
+  <div>
+    <label for="user_password_confirmation_box">Password Confirmation</label>
+    <input id="user_password_confirmation_box" type="password" name="query_user_password_confirmation" placeholder="Confirm your password...">
+  </div>
+
+  <button>Update account</button>
+</form>
