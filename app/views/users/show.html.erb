@@ -8,7 +8,15 @@
   <dd>
     <%= @the_user.followers.count %>
     <div>
-      <a href="">Unfollow</a>
+      <% current_user = User.where({ :id => session.fetch(:user_id)}).first %>
+      <% if @the_user.is_followed_by(current_user) == 4 %>
+        <form action="/insert_follow_request" method="post">
+          <input type="hidden" name="query_recipient_id" value="<%= @the_user.id %>">
+          <button>Follow</button>
+        </form>
+      <% elsif @the_user.is_followed_by(current_user) == 1 %>
+        <a href="/delete_follow_request/<%= @the_user.follow_request(current_user).id %>">Unfollow</a>
+      <% end %>
     </div>
   </dd>
 
