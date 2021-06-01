@@ -19,4 +19,10 @@ class Photo < ApplicationRecord
     return the_owner
   end
 
+  def fans
+      the_photo_id = self.id
+      matching_fans = Like.where({ :photo_id => the_photo_id})
+      return matching_fans
+  end
+
 end
