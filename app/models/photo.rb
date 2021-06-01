@@ -31,4 +31,19 @@ class Photo < ApplicationRecord
     return matching_comments
   end
 
+  def liked_by(current_user)
+    if (self.like(current_user) == nil)
+      return false
+    else
+      return true
+    end
+  end
+
+  def like(current_user)
+    the_photo_id = self.id
+    the_fan_id = current_user.id
+    the_like = Like.where({ :fan_id => the_fan_id }).where({:photo_id => the_photo_id}).first
+    return the_like
+  end
+
 end

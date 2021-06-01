@@ -48,7 +48,8 @@
   
   <dt>Add a fan</dt>
   <dd>
-      <% if @the_photo.does_like(session.fetch(:user_id)) %>
+      <% if @the_photo.liked_by(@current_user) %>
+        <a href="/delete_like/<%= @the_photo.like(@current_user).id %>">Unlike</a>
       <% else %>
         <form action="/insert_like" method="post">
           <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
@@ -57,7 +58,7 @@
       <% end %>
   </dd>
 
-  <% if session.fetch(:user_id) == @the_photo.owner.id %>
+  <% if @current_user == @the_photo.owner %>
     <dt>Edit photo</dt>
     <dd>
       <form action="/modify_photo/<%= @the_photo.id %>" method="post" enctype="multipart/form-data">
