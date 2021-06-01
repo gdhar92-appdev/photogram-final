@@ -8,13 +8,19 @@ class UsersController < ApplicationController
   end
 
   def show
-    the_username = params.fetch("path_id")
+    
+    if (session.fetch(:user_id) == nil)
+      redirect_to("/user_sign_in", {:notice => "You have to sign in first."})
+    else
+      the_username = params.fetch("path_id")
 
-    matching_users = User.where({ :username => the_username })
+      matching_users = User.where({ :username => the_username })
 
-    @the_user = matching_users.at(0)
+      @the_user = matching_users.at(0)
 
-    render({ :template => "users/show.html.erb" })
+      render({ :template => "users/show.html.erb" })
+    end
+    
   end
 
   # def create
