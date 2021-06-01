@@ -83,11 +83,18 @@ class User < ApplicationRecord
     return matching_photos
   end
 
-  def follow_request(current_user)
+  def follow_request_info(current_user)
     user_id = self.id
     signed_in_user_id = current_user.id
     the_follow_request = FollowRequest.where({ :recipient_id => user_id}).where({ :sender_id => signed_in_user_id}).first
     return the_follow_request
+  end
+
+  def follow_request
+    user_id = self.id
+    pending_requests = FollowRequest.where({ :status => "pending" })
+    remaining_requests = pending_requests.where({ :recipient_id => user_id })
+    return remaining_requests
   end
 
 end

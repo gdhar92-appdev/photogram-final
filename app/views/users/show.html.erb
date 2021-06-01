@@ -9,19 +9,60 @@
     <%= @the_user.followers.count %>
     <div>
       <% current_user = User.where({ :id => session.fetch(:user_id)}).first %>
-      <% if @the_user.is_followed_by(current_user) == 4 %>
-        <form action="/insert_follow_request" method="post">
-          <input type="hidden" name="query_recipient_id" value="<%= @the_user.id %>">
-          <button>Follow</button>
-        </form>
-      <% elsif @the_user.is_followed_by(current_user) == 1 %>
-        <a href="/delete_follow_request/<%= @the_user.follow_request(current_user).id %>">Unfollow</a>
+      <% if @the_user == current_user %>
+        <h4>Pending follow requests</h4>
+        <ul>
+          <% @the_user.follow_request.each do |a_request| %>
+            <li>
+              <%= a_request.sender.username %>
+
+              <form action="/modify_follow_request/<%= a_request.id %>" method="post">
+                <input name="query_status" value="accepted" type="hidden">
+                <button>Accept</button>
+              </form>
+
+              <form action="/modify_follow_request/<%= a_request.id %>" method="post">
+                <input name="query_status" value="rejected" type="hidden">
+                <button>Reject</button>
+              </form>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <% if @the_user.is_followed_by(current_user) == 4 %>
+          <form action="/insert_follow_request" method="post">
+            <input type="hidden" name="query_recipient_id" value="<%= @the_user.id %>">
+            <button>Follow</button>
+          </form>
+        <% elsif @the_user.is_followed_by(current_user) == 1 %>
+          <a href="/delete_follow_request/<%= @the_user.follow_request_info(current_user).id %>">Unfollow</a>
+        <% end %>
       <% end %>
     </div>
   </dd>
 
   <dt>Following</dt>
-  <dd><%= @the_user.following.count %>
+  <dd><%= @the_user.following.count %></dd>
+
+  <% if @the_user == current_user %>
+    <dt>Edit user</dt>
+    <dd>
+      <form action="/modify_user/<%= @the_user.id %>" method="post">
+        <label for="browser_username">Username</label>
+        <input id="browser_username" type="text" name="query_username" placeholder="Enter a username..." value="<%= @the_user.username %>">
+
+        <% if @the_user.private %>
+          <label for="browser_private">Private?</label>
+          <input id="browser_private" type="checkbox" name="query_private" value="coding" checked>
+        <% else %>
+          <label for="browser_private">Private?</label>
+          <input id="browser_private" type="checkbox" name="query_private">
+        <% end %>
+
+        <button>Update user</button>
+      </form>
+    </dd>
+  <% end %>
 </dl>
 
 <nav>

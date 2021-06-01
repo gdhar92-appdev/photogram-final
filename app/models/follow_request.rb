@@ -10,4 +10,11 @@
 #  sender_id    :integer
 #
 class FollowRequest < ApplicationRecord
+
+  def sender
+    user_id = self.sender_id
+    the_user = User.where({ :id => user_id}).first
+    return the_user
+  end
+
 end
