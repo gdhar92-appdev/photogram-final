@@ -14,6 +14,8 @@ class PhotosController < ApplicationController
 
     @the_photo = matching_photos.at(0)
 
+    @current_user = User.where({ :id => session.fetch(:user_id)}).first
+
     render({ :template => "photos/show.html.erb" })
   end
 
