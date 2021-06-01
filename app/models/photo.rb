@@ -25,4 +25,10 @@ class Photo < ApplicationRecord
       return matching_fans
   end
 
+  def comments
+    the_photo_id = self.id
+    matching_comments = Comment.where({ :photo_id => the_photo_id}).order({ :created_at => :desc})
+    return matching_comments
+  end
+
 end

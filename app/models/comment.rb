@@ -10,4 +10,11 @@
 #  photo_id   :integer
 #
 class Comment < ApplicationRecord
+
+  def owner
+    owner_id = self.author_id
+    the_owner = User.where({ :id => owner_id }).first
+    return the_owner
+  end
+
 end
