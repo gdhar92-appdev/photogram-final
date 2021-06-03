@@ -13,6 +13,8 @@
 #
 class Photo < ApplicationRecord
 
+  mount_uploader :image, ImageUploader
+  
   def owner
     owner_id = self.owner_id
     the_owner = User.where({ :id => owner_id}).first
